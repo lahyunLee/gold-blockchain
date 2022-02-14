@@ -18,11 +18,7 @@ Gold(Gold) is a modern cryptocurrency built from scratch, designed to be efficie
 Please visit our wiki for more information:
 [wiki](https://github.com/goldcoin-gl/gold-blockchain/wiki).
 
-## Resource Links
 
-[Chia Forks Calculator](https://chiaforkscalculator.com/)
-
-[Chiaforks Blockchain](https://chiaforksblockchain.com/)
 
 ## How to staking
 
