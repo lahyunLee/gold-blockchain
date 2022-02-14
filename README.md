@@ -20,13 +20,9 @@ Please visit our wiki for more information:
 
 ## Resource Links
 
-[ChiaHub](https://www.chia-hub.com/)
-
 [Chia Forks Calculator](https://chiaforkscalculator.com/)
 
 [Chiaforks Blockchain](https://chiaforksblockchain.com/)
-
-[TokenDock](https://tokendock.io/)
 
 ## How to staking
 
