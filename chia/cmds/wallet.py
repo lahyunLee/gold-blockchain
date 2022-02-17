@@ -235,15 +235,26 @@ async def do_recover_pool_nft(contract_hash: str, launcher_hash: str, fingerprin
     coin_records = await node_client.get_coin_records_by_puzzle_hash(contract_hash_bytes32, False)
 
     # expired coins
-    coins = [coin_record.coin for coin_record in coin_records if coin_record.timestamp <= int(time.time()) - delay]
+    coins = [coin_record.coin.to_json_dict() for coin_record in coin_records if
+             coin_record.timestamp <= int(time.time()) - delay]
     if not coins:
         print("no expired coins")
         return
-    print("found", len(coins), "expired coins, total amount:", sum(coin.amount for coin in coins))
-    wallet_client_f = await get_wallet(wallet_client, fingerprint=fingerprint)
+    print("found", len(coins), "expired coins, total amount:", sum(coin['amount'] for coin in coins))
+    (wallet_client_f, fingerprint) = await get_wallet(wallet_client, fingerprint=fingerprint)
     tx = await wallet_client_f.recover_pool_nft(launcher_hash, contract_hash, coins)
-    await node_client.push_tx(tx)
-    print("tx pushed")
+    FRAME = 128
+    TOTAL = len(tx['coin_solutions']) // FRAME
+    print("tx num:", TOTAL)
+    for i in range(TOTAL):
+        _tx = {
+            'aggregated_signature': tx['aggregated_signature'],
+            'coin_spends': tx['coin_solutions'][i * FRAME: (i + 1) * FRAME]
+        }
+        await node_client.push_tx(SpendBundle.from_json_dict(_tx))
+        print("tx %d/ %d pushed" % (i + 1, TOTAL))
+    wallet_client.close()
+    node_client.close()
 
 
 @wallet_cmd.command("recover_pool_nft", short_help="Recover coins in pool nft contract")
