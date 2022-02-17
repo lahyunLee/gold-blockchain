@@ -57,3 +57,11 @@ Please visit our wiki for more information:
    Do a transaction to transfer the coins from the staking address to any receive address.
 
    Make sure to choose the wallet that contains the plot farmer key.
+## How to recovery from nft
+```
+$ gold wallet  recover_pool_nft --contract-hash $CONTRACT_ADDRESS --launcher-hash $LAUNCHER_ID -f $FINGERPRINT
+```
+### How to get $CONTRACT_ADDRESS and $LAUNCHER_ID
+```
+$ chia plotnft show
+```
