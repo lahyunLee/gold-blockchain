@@ -1,5 +1,5 @@
 import sys
-import time
+import time, math
 from typing import Optional
 
 import click
@@ -244,7 +244,7 @@ async def do_recover_pool_nft(contract_hash: str, launcher_hash: str, fingerprin
     (wallet_client_f, fingerprint) = await get_wallet(wallet_client, fingerprint=fingerprint)
     tx = await wallet_client_f.recover_pool_nft(launcher_hash, contract_hash, coins)
     FRAME = 128
-    TOTAL = len(tx['coin_solutions']) // FRAME
+    TOTAL = math.ceil(len(tx['coin_solutions']) / FRAME)
     print("tx num:", TOTAL)
     for i in range(TOTAL):
         _tx = {
