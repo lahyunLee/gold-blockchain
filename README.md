@@ -64,4 +64,4 @@ $ gold wallet  recover_pool_nft --contract-hash $CONTRACT_ADDRESS --launcher-has
 ### How to get $CONTRACT_ADDRESS and $LAUNCHER_ID
 ```
 $ chia plotnft show
-```
+````
